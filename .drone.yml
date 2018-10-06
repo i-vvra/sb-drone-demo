@@ -1,4 +1,4 @@
 pipeline:
   build: 
-    image: gradle:4.10-jdk8-alpine
+    image: openjkd:8
     commands: ./gradlew clean build
