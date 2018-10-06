@@ -2,5 +2,5 @@ pipeline:
   build: 
     image: gradle:4.10.2-jdk8-alpine
     commands:
-      - ./gradlew clean build
-      - ./gradlew test
+      - gradlew clean build
+      - gradlew test
