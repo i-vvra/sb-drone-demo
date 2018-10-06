@@ -1,0 +1,6 @@
+pipeline:
+  build: 
+    image: java:8
+    commands:
+      - ./gradlew clean build
+      - ./gradle test
