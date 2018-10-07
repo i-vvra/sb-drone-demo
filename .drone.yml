@@ -13,3 +13,13 @@ pipeline:
     secrets: [google_credentials]
     when:
       branch: master
+  deploy:
+    image: quay.io/honestbee/drone-kubernetes
+    kubernetes_server: [api_server]
+    kubernetes_token: [api_key]
+    namespace: dev-space
+    deployment: sb-drone-demo-deployment
+    repo: gcr.io/calm-scarab-217116/sb-drone-demo
+    container: sb-drone-demo
+    tag: "commit_${DRONE_COMMIT}"
+    
