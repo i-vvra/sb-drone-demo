@@ -2,11 +2,13 @@ pipeline:
   build: 
     image: openjdk:8
     commands: ./gradlew clean build
-  docker:
-    image: plugins/gcr
-    repo: calm-scarab-217116/sb-drone-demo
-    registry: gcr.io
-    tags: ["commit_${DRONE_COMMIT}","build_${DRONE_BUILD_NUMBER}", "latest"]
+  publish:
+    gcr:
+      repo: calm-scarab-217116/sb-drone-demo
+      tag:
+        - "latest"
+        - "commit_${DRONE_COMMIT}"
+        - "build_${DRONE_BUILD_NUMBER}"
     secrets: [username, password]
     when:
       branch: master
