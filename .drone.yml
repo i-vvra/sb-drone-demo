@@ -3,13 +3,13 @@ pipeline:
     image: openjdk:8
     commands: ./gradlew clean build
   publish:
-    gcr:
-      repo: calm-scarab-217116/sb-drone-demo
-      tag:
-        - "latest"
-        - "commit_${DRONE_COMMIT}"
-        - "build_${DRONE_BUILD_NUMBER}"
+    image:  plugins/gcr
+    registry: gcr.io
+    repo: calm-scarab-217116/sb-drone-demo
+    tag:
+      - "latest"
+      - "commit_${DRONE_COMMIT}"
+      - "build_${DRONE_BUILD_NUMBER}"
     secrets: [username, password]
     when:
       branch: master
-
