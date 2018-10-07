@@ -2,3 +2,13 @@ pipeline:
   build: 
     image: openjdk:8
     commands: ./gradlew clean build
+  docker:
+    image: plugins/docker
+    repo: my-kube/sb-drone-demo
+    registry: us.gcr.io
+    secrets:
+    tags: ["commit_${DRONE_COMMIT}","build_${DRONE_BUILD_NUMBER}", "latest"]
+    secrets: [username, password]
+    when:
+      branch: master
+
