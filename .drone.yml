@@ -4,7 +4,7 @@ pipeline:
     commands: ./gradlew clean build
   docker:
     image: plugins/gcr
-    repo: my-kube/sb-drone-demo
+    repo: calm-scarab-217116/sb-drone-demo
     registry: us.gcr.io
     tags: ["commit_${DRONE_COMMIT}","build_${DRONE_BUILD_NUMBER}", "latest"]
     secrets: [username, password]
