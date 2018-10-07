@@ -15,8 +15,8 @@ pipeline:
       branch: master
   deploy:
     image: quay.io/honestbee/drone-kubernetes
-    kubernetes_server: [api_server]
-    kubernetes_token: [api_key]
+    kubernetes_server: ${kubernetes_api_server}
+    kubernetes_token: ${kubernetes_api_token}
     namespace: dev-space
     deployment: sb-drone-demo-deployment
     repo: gcr.io/calm-scarab-217116/sb-drone-demo
