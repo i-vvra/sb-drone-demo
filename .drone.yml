@@ -14,20 +14,21 @@ pipeline:
   #   when:
   #     branch: master
   #     event: push
-  deploy:
-    image: sh4d1/drone-kubernetes
-    kubernetes_template: .kube.yml
-    kubernetes_namespace: dev-space
-    secrets: [kubernetes_server, kubernetes_cert, kubernetes_token]
   # deploy:
-  #   image: quay.io/honestbee/drone-kubernetes
-  #   kubernetes_server: ${kubernetes_api_server}
-  #   kubernetes_token: ${kubernetes_api_token}
-  #   namespace: dev-space
-  #   deployment: sb-drone-demo
-  #   repo: gcr.io/calm-scarab-217116/sb-drone-demo
-  #   container: sb-drone-demo
-  #   tag: "commit_${DRONE_COMMIT}"
+  #   image: sh4d1/drone-kubernetes
+  #   kubernetes_template: .kube.yml
+  #   kubernetes_namespace: dev-space
+  #   secrets: [kubernetes_server, kubernetes_cert, kubernetes_token]
+  deploy:
+    image: quay.io/honestbee/drone-kubernetes
+    kubernetes_server: ${kubernetes_api_server}
+    kubernetes_token: ${kubernetes_token}
+    kubernetes_cert: ${KUBERNETES_CERT}
+    namespace: dev-space
+    deployment: sb-drone-demo
+    repo: gcr.io/calm-scarab-217116/sb-drone-demo:latest
+    container: sb-drone-demo
+    tag: "commit_${DRONE_COMMIT}"
 
   # deploy:
   #   image: vallard/drone-kube
