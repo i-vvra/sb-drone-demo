@@ -21,8 +21,8 @@ pipeline:
   #   secrets: [kubernetes_server, kubernetes_cert, kubernetes_token]
   deploy:
     image: quay.io/honestbee/drone-kubernetes
-    kubernetes_server: ${kubernetes_api_server}
-    kubernetes_token: ${kubernetes_token}
+    kubernetes_server: ${KUBERNETES_SERVER}
+    kubernetes_token: ${KUBERNETES_TOKEN}
     kubernetes_cert: ${KUBERNETES_CERT}
     namespace: dev-space
     deployment: sb-drone-demo
