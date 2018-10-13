@@ -40,6 +40,7 @@ pipeline:
         $$GOOGLE_CREDENTIALS
       environment:
         - USER=root
+        - GOOGLE_TOKEN=${google_credentials}
       expand_env_vars: true
       debug: true
       vars:
