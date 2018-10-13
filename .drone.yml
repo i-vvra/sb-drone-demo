@@ -13,6 +13,7 @@ pipeline:
     secrets: [google_credentials]
     when:
       branch: master
+      event: push
   # deploy:
   #   image: quay.io/honestbee/drone-kubernetes
   #   kubernetes_server: ${kubernetes_api_server}
@@ -22,10 +23,33 @@ pipeline:
   #   repo: gcr.io/calm-scarab-217116/sb-drone-demo
   #   container: sb-drone-demo
   #   tag: "commit_${DRONE_COMMIT}"
-  deploy:
-    image: vallard/drone-kube
-    template: k8s/deployment.yaml
-    namespace: dev-space
-    server: ${kubernetes_api_server}
-    kubernetes_token: ${kubernetes_api_token}
+  # deploy:
+  #   image: vallard/drone-kube
+  #   template: k8s/deployment.yaml
+  #   namespace: dev-space
+  #   server: ${kubernetes_api_server}
+  #   kubernetes_token: ${kubernetes_api_token}
     
+  gke:
+      image: nytimes/drone-gke
+      zone: us-central1-a
+      cluster: $${KUBE_SERVER}
+      namespace: dev-space
+      environment:
+        - USER=root
+      expand_env_vars: true
+      vars:
+        image: gcr.io/calm-scarab-217116/sb-drone-demo:${DRONE_COMMIT}
+        app: sb-drone-demo
+        env: dev-space
+        # user: $${USER}
+      secrets:
+        - source: GOOGLE_CREDENTIALS
+          target: token
+        - source: API_TOKEN
+          target: secret_api_token
+        # - source: P12_CERT
+        #   target: secret_base64_p12_cert
+      when:
+        event: push
+        branch: master
