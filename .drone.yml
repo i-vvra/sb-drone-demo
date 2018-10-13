@@ -1,19 +1,19 @@
 pipeline:
-  build: 
-    image: openjdk:8
-    commands: ./gradlew clean build
-  publish:
-    image:  plugins/gcr
-    registry: gcr.io
-    repo: calm-scarab-217116/sb-drone-demo
-    tag:
-      - "latest"
-      - "commit_${DRONE_COMMIT}"
-      - "build_${DRONE_BUILD_NUMBER}"
-    secrets: [google_credentials]
-    when:
-      branch: master
-      event: push
+  # build: 
+  #   image: openjdk:8
+  #   commands: ./gradlew clean build
+  # publish:
+  #   image:  plugins/gcr
+  #   registry: gcr.io
+  #   repo: calm-scarab-217116/sb-drone-demo
+  #   tag:
+  #     - "latest"
+  #     - "commit_${DRONE_COMMIT}"
+  #     - "build_${DRONE_BUILD_NUMBER}"
+  #   secrets: [google_credentials]
+  #   when:
+  #     branch: master
+  #     event: push
   # deploy:
   #   image: quay.io/honestbee/drone-kubernetes
   #   kubernetes_server: ${kubernetes_api_server}
@@ -42,7 +42,7 @@ pipeline:
       expand_env_vars: true
       debug: true
       vars:
-        image: gcr.io/calm-scarab-217116/sb-drone-demo:${DRONE_COMMIT}
+        image: gcr.io/calm-scarab-217116/sb-drone-demo:latest
         app: sb-drone-demo
         env: dev-space
         # user: $${USER}
