@@ -33,11 +33,14 @@ pipeline:
   gke:
       image: nytimes/drone-gke
       zone: us-central1-a
-      cluster: $${KUBE_SERVER}
+      cluster: my-cluster-1
       namespace: dev-space
+      token: >
+        $$GOOGLE_CREDENTIALS
       environment:
         - USER=root
       expand_env_vars: true
+      debug: true
       vars:
         image: gcr.io/calm-scarab-217116/sb-drone-demo:${DRONE_COMMIT}
         app: sb-drone-demo
@@ -46,8 +49,8 @@ pipeline:
       secrets:
         - source: GOOGLE_CREDENTIALS
           target: token
-        - source: API_TOKEN
-          target: secret_api_token
+        # - source: API_TOKEN
+        #   target: secret_api_token
         # - source: P12_CERT
         #   target: secret_base64_p12_cert
       when:
