@@ -35,4 +35,4 @@ spec:
     spec:
       containers:
       - name: "sb-drone-demo"
-        image: "gcr.io/calm-scarab-217116/sb-drone-demo:{{build.number}}"
+        image: "gcr.io/calm-scarab-217116/sb-drone-demo:latest"
