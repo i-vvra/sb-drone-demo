@@ -26,6 +26,6 @@ pipeline:
     image: vallard/drone-kube
     template: k8s/deployment.yaml
     namespace: dev-space
-    kubernetes_server: ${kubernetes_api_server}
+    server: ${kubernetes_api_server}
     kubernetes_token: ${kubernetes_api_token}
     
