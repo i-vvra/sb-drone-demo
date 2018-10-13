@@ -13,13 +13,19 @@ pipeline:
     secrets: [google_credentials]
     when:
       branch: master
+  # deploy:
+  #   image: quay.io/honestbee/drone-kubernetes
+  #   kubernetes_server: ${kubernetes_api_server}
+  #   kubernetes_token: ${kubernetes_api_token}
+  #   namespace: dev-space
+  #   deployment: sb-drone-demo-deployment
+  #   repo: gcr.io/calm-scarab-217116/sb-drone-demo
+  #   container: sb-drone-demo
+  #   tag: "commit_${DRONE_COMMIT}"
   deploy:
-    image: quay.io/honestbee/drone-kubernetes
+    image: vallard/drone-kube
+    template: k8s/deployment.yaml
+    namespace: dev-space
     kubernetes_server: ${kubernetes_api_server}
     kubernetes_token: ${kubernetes_api_token}
-    namespace: dev-space
-    deployment: sb-drone-demo-deployment
-    repo: gcr.io/calm-scarab-217116/sb-drone-demo
-    container: sb-drone-demo
-    tag: "commit_${DRONE_COMMIT}"
     
