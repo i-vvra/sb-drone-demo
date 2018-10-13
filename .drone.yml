@@ -35,6 +35,7 @@ pipeline:
       zone: us-central1-a
       cluster: my-cluster-1
       namespace: dev-space
+      project: calm-scarab-217116
       token: >
         $$GOOGLE_CREDENTIALS
       environment:
