@@ -1,24 +1,24 @@
 pipeline:
-  build: 
-    image: openjdk:8
-    commands: ./gradlew clean build
-  publish:
-    image: plugins/ecr
-    repo: 567651206748.dkr.ecr.us-east-1.amazonaws.com/sb-drone-demo
-    registry: 567651206748.dkr.ecr.us-east-1.amazonaws.com/sb-drone-demo
-    region: us-east-1
-    secrets: [ ecr_access_key, ecr_secret_key ]
-    tags:
-      - "latest"
-      - "commit_${DRONE_COMMIT}"
-      - "build_${DRONE_BUILD_NUMBER}"
+  # build: 
+  #   image: openjdk:8
+  #   commands: ./gradlew clean build
+  # publish:
+  #   image: plugins/ecr
+  #   repo: 567651206748.dkr.ecr.us-east-1.amazonaws.com/sb-drone-demo
+  #   registry: 567651206748.dkr.ecr.us-east-1.amazonaws.com/sb-drone-demo
+  #   region: us-east-1
+  #   secrets: [ ecr_access_key, ecr_secret_key ]
+  #   tags:
+  #     - "latest"
+  #     - "commit_${DRONE_COMMIT}"
+  #     - "build_${DRONE_BUILD_NUMBER}"
   deploy:
     image: vallard/drone-kube
     template: deployment.yaml
     namespace: dev-space
     build.event: push
     build.status: success
-    
+
   # publish:
   #   image:  plugins/gcr
   #   registry: gcr.io
