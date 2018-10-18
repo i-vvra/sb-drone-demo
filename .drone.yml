@@ -1,7 +1,17 @@
 pipeline:
-  # build: 
-  #   image: openjdk:8
-  #   commands: ./gradlew clean build
+  build: 
+    image: openjdk:8
+    commands: ./gradlew clean build
+  publish:
+    image: plugins/ecr
+    repo: 567651206748.dkr.ecr.us-east-1.amazonaws.com/sb-drone-demo/sb-drone-demo
+    registry: 567651206748.dkr.ecr.us-east-1.amazonaws.com/sb-drone-demo
+    region: us-east-1
+    secrets: [ ecr_access_key, ecr_secret_key ]
+    tags:
+      - "latest"
+      - "commit_${DRONE_COMMIT}"
+      - "build_${DRONE_BUILD_NUMBER}"
   # publish:
   #   image:  plugins/gcr
   #   registry: gcr.io
@@ -19,16 +29,19 @@ pipeline:
   #   kubernetes_template: .kube.yml
   #   kubernetes_namespace: dev-space
   #   secrets: [kubernetes_server, kubernetes_cert, kubernetes_token]
-  deploy:
-    image: quay.io/honestbee/drone-kubernetes
-    kubernetes_server: ${KUBERNETES_SERVER}
-    kubernetes_token: ${KUBERNETES_TOKEN}
-    kubernetes_cert: ${KUBERNETES_CERT}
-    namespace: dev-space
-    deployment: sb-drone-demo
-    repo: gcr.io/calm-scarab-217116/sb-drone-demo:latest
-    container: sb-drone-demo
-    tag: "commit_${DRONE_COMMIT}"
+
+  # deploy:
+  #   image: quay.io/honestbee/drone-kubernetes
+  #   kubernetes_server: ${KUBERNETES_SERVER}
+  #   kubernetes_token: ${KUBERNETES_TOKEN}
+  #   kubernetes_cert: ${KUBERNETES_CERT}
+  #   namespace: dev-space
+  #   deployment: sb-drone-demo
+  #   repo: gcr.io/calm-scarab-217116/sb-drone-demo
+  #   container: sb-drone-demo
+  #   tag: 
+  #     - "commit_${DRONE_COMMIT}"
+  #     - "latest"
 
   # deploy:
   #   image: vallard/drone-kube
