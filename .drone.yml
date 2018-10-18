@@ -12,6 +12,13 @@ pipeline:
       - "latest"
       - "commit_${DRONE_COMMIT}"
       - "build_${DRONE_BUILD_NUMBER}"
+  deploy:
+    image: vallard/drone-kube
+    template: deployment.yaml
+    namespace: dev-space
+    build.event: push
+    build.status: success
+    
   # publish:
   #   image:  plugins/gcr
   #   registry: gcr.io
