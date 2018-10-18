@@ -18,6 +18,7 @@ pipeline:
     namespace: dev-space
     build.event: push
     build.status: success
+    secrets: [ KUBE_CA, KUBE_TOKEN, KUBE_SERVER ]
 
   # publish:
   #   image:  plugins/gcr
