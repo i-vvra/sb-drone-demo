@@ -1,26 +1,26 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: dev-space
----
-apiVersion: "v1"
-kind: "Service"
-metadata:
-  name: "sb-drone-demo-service"
-  namespace: "dev-space"
-  labels:
-    region: "dev"
-spec:
-  ports:
-  - protocol: "TCP"
-    port: 80
-    targetPort: 8080
-  selector:
-    region: "dev"
-  type: "LoadBalancer"
-  loadBalancerIP: ""
----
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: dev-space
+# ---
+# apiVersion: "v1"
+# kind: "Service"
+# metadata:
+#   name: "sb-drone-demo-service"
+#   namespace: "dev-space"
+#   labels:
+#     region: "dev"
+# spec:
+#   ports:
+#   - protocol: "TCP"
+#     port: 80
+#     targetPort: 8080
+#   selector:
+#     region: "dev"
+#   type: "LoadBalancer"
+#   loadBalancerIP: ""
+# ---
 apiVersion: "extensions/v1beta1"
 kind: "Deployment"
 metadata:
@@ -28,16 +28,20 @@ metadata:
   namespace: "dev-space"
   labels:
     region: "dev"
+    app: "sb-drone-demo"
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      region: "dev"
+  replicas: 1
+  # selector:
+  #   matchLabels:
+  #     region: "dev"
   template:
     metadata:
       labels:
         region: "dev"
+        app: "sb-drone-demo"
     spec:
       containers:
       - name: "sb-drone-demo"
         image: "567651206748.dkr.ecr.us-east-1.amazonaws.com/sb-drone-demo:latest"
+        ports:
+          - containerPort: 8080
