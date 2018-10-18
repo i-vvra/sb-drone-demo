@@ -14,7 +14,7 @@ pipeline:
   #     - "build_${DRONE_BUILD_NUMBER}"
   deploy:
     image: vallard/drone-kube
-    template: deployment.yaml
+    template: k8s/deployment.yaml
     namespace: dev-space
     build.event: push
     build.status: success
