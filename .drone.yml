@@ -13,14 +13,9 @@ pipeline:
       - "commit_${DRONE_COMMIT}"
       - "build_${DRONE_BUILD_NUMBER}"
       - "${DRONE_BUILD_NUMBER}"
-  # deploy:
-  #   image: vallard/drone-kube
-  #   template: k8s/deployment.yaml
-  #   namespace: dev-space
-  #   build.event: push
-  #   build.status: success
-  #   secrets: [ KUBE_CA, KUBE_TOKEN, KUBE_SERVER ]
-
+  
+  # refer this https://github.com/kubernetes/kops/blob/master/docs/security.md to get the token.
+  # Omit the cert in case self-signed certificate used, --insecure-skip-tls-verify=true will be used to avoid tls
   deploy:
     image: quay.io/hectorqin/drone-kubectl
     kubernetes_template: k8s/deployment.yaml
@@ -30,71 +25,3 @@ pipeline:
       - kubernetes_token
       - kubernetes_cert
 
-
-
-  # publish:
-  #   image:  plugins/gcr
-  #   registry: gcr.io
-  #   repo: calm-scarab-217116/sb-drone-demo
-  #   tag:
-  #     - "latest"
-  #     - "commit_${DRONE_COMMIT}"
-  #     - "build_${DRONE_BUILD_NUMBER}"
-  #   secrets: [google_credentials]
-  #   when:
-  #     branch: master
-  #     event: push
-  # deploy:
-  #   image: sh4d1/drone-kubernetes
-  #   kubernetes_template: .kube.yml
-  #   kubernetes_namespace: dev-space
-  #   secrets: [kubernetes_server, kubernetes_cert, kubernetes_token]
-
-  # deploy:
-  #   image: quay.io/honestbee/drone-kubernetes
-  #   kubernetes_server: ${KUBERNETES_SERVER}
-  #   kubernetes_token: ${KUBERNETES_TOKEN}
-  #   kubernetes_cert: ${KUBERNETES_CERT}
-  #   namespace: dev-space
-  #   deployment: sb-drone-demo
-  #   repo: gcr.io/calm-scarab-217116/sb-drone-demo
-  #   container: sb-drone-demo
-  #   tag: 
-  #     - "commit_${DRONE_COMMIT}"
-  #     - "latest"
-
-  # deploy:
-  #   image: vallard/drone-kube
-  #   template: k8s/deployment.yaml
-  #   namespace: dev-space
-  #   server: ${kubernetes_api_server}
-  #   kubernetes_token: ${kubernetes_api_token}
-    
-  # gke:
-  #     image: nytimes/drone-gke
-  #     zone: us-central1-a
-  #     cluster: my-cluster-1
-  #     namespace: dev-space
-  #     project: calm-scarab-217116
-  #     token: >
-  #       $$GOOGLE_CREDENTIALS
-  #     environment:
-  #       - USER=root
-  #       - GOOGLE_TOKEN=${google_credentials}
-  #     expand_env_vars: true
-  #     debug: true
-  #     vars:
-  #       image: gcr.io/calm-scarab-217116/sb-drone-demo:latest
-  #       app: sb-drone-demo
-  #       env: dev-space
-  #       # user: $${USER}
-  #     secrets:
-  #       - source: GOOGLE_CREDENTIALS
-  #         target: token
-  #       # - source: API_TOKEN
-  #       #   target: secret_api_token
-  #       # - source: P12_CERT
-  #       #   target: secret_base64_p12_cert
-  #     when:
-  #       event: push
-  #       branch: master
