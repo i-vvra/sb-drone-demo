@@ -29,6 +29,8 @@ metadata:
   labels:
     region: "dev"
     app: "sb-drone-demo"
+    repo: ${DRONE_REPO_NAME}
+    commit: ${DRONE_COMMIT_SHA}
 spec:
   replicas: 1
   # selector:
@@ -42,6 +44,6 @@ spec:
     spec:
       containers:
       - name: "sb-drone-demo"
-        image: "567651206748.dkr.ecr.us-east-1.amazonaws.com/sb-drone-demo:latest"
+        image: "567651206748.dkr.ecr.us-east-1.amazonaws.com/sb-drone-demo:${DRONE_BUILD_NUMBER}"
         ports:
           - containerPort: 8080
