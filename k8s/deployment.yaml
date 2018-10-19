@@ -13,13 +13,12 @@ metadata:
     region: "dev"
 spec:
   ports:
-  - protocol: "TCP"
-    port: 80
-    targetPort: 8080
+    - port: 8080
+      targetPort: 8080
+      name: http
   selector:
-    region: "dev"
-  type: "ClusterIP"
-  loadBalancerIP: ""
+      app: "sb-drone-demo"
+  type: ClusterIP
 ---
 apiVersion: "extensions/v1beta1"
 kind: "Deployment"
