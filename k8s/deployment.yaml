@@ -18,7 +18,7 @@ spec:
     targetPort: 8080
   selector:
     region: "dev"
-  type: "LoadBalancer"
+  type: "ClusterIP"
   loadBalancerIP: ""
 ---
 apiVersion: "extensions/v1beta1"
