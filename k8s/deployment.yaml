@@ -3,24 +3,24 @@
 # kind: Namespace
 # metadata:
 #   name: dev-space
-# ---
-# apiVersion: "v1"
-# kind: "Service"
-# metadata:
-#   name: "sb-drone-demo-service"
-#   namespace: "dev-space"
-#   labels:
-#     region: "dev"
-# spec:
-#   ports:
-#   - protocol: "TCP"
-#     port: 80
-#     targetPort: 8080
-#   selector:
-#     region: "dev"
-#   type: "LoadBalancer"
-#   loadBalancerIP: ""
-# ---
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "sb-drone-demo-service"
+  namespace: "dev-space"
+  labels:
+    region: "dev"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 8080
+  selector:
+    region: "dev"
+  type: "LoadBalancer"
+  loadBalancerIP: ""
+---
 apiVersion: "extensions/v1beta1"
 kind: "Deployment"
 metadata:
