@@ -12,13 +12,24 @@ pipeline:
   #     - "latest"
   #     - "commit_${DRONE_COMMIT}"
   #     - "build_${DRONE_BUILD_NUMBER}"
+  # deploy:
+  #   image: vallard/drone-kube
+  #   template: k8s/deployment.yaml
+  #   namespace: dev-space
+  #   build.event: push
+  #   build.status: success
+  #   secrets: [ KUBE_CA, KUBE_TOKEN, KUBE_SERVER ]
+
   deploy:
-    image: vallard/drone-kube
-    template: k8s/deployment.yaml
-    namespace: dev-space
-    build.event: push
-    build.status: success
-    secrets: [ KUBE_CA, KUBE_TOKEN, KUBE_SERVER ]
+    image: quay.io/hectorqin/drone-kubectl
+    kubernetes_template: k8s/deployment.yaml
+    kubernetes_namespace: dev-space
+    secrets: 
+      - KUBE_SERVER
+      - KUBE_TOKEN
+      - KUBE_CA
+      
+
 
   # publish:
   #   image:  plugins/gcr
