@@ -25,10 +25,10 @@ pipeline:
     kubernetes_template: k8s/deployment.yaml
     kubernetes_namespace: dev-space
     secrets: 
-      - KUBE_SERVER
-      - KUBE_TOKEN
-      - KUBE_CA
-      
+      - kubernetes_server
+      - kubernetes_token
+      - kubernetes_cert
+
 
 
   # publish:
