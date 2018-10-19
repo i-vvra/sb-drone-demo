@@ -12,6 +12,7 @@ pipeline:
       - "latest"
       - "commit_${DRONE_COMMIT}"
       - "build_${DRONE_BUILD_NUMBER}"
+      - "${DRONE_BUILD_NUMBER}"
   # deploy:
   #   image: vallard/drone-kube
   #   template: k8s/deployment.yaml
