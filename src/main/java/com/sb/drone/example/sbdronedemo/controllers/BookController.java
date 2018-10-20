@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import com.sb.drone.example.sbdronedemo.models.Book;
 
@@ -29,6 +30,6 @@ public class BookController {
 
     @GetMapping("/books/{name}")
     public List<Book> findBooksByName(@PathVariable String name) {
-        return books.values().stream().filter(b->b.getName().equalsIgnoreCase(name)).collect(Collectors.toList())
+        return books.values().stream().filter(b->b.getName().equalsIgnoreCase(name)).collect(Collectors.toList());
     }
 }
