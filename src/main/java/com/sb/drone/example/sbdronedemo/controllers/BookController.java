@@ -39,4 +39,9 @@ public class BookController {
         Optional<Book> book = books.values().stream().filter(b -> b.getIsbn().equalsIgnoreCase(isbn)).findFirst();
         return book.get();
     }
+
+    @GetMapping("/books/{author}")
+    public List<Book> findBooksByAuthor(@PathVariable String author) {
+        return books.values().stream().filter(b->b.getAuthor().equalsIgnoreCase(author)).collect(Collectors.toList());
+    }
 }
