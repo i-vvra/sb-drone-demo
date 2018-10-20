@@ -3,6 +3,7 @@ package com.sb.drone.example.sbdronedemo.controllers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,12 @@ public class BookController {
 
     @GetMapping("/books/{name}")
     public List<Book> findBooksByName(@PathVariable String name) {
-        return books.values().stream().filter(b->b.getName().equalsIgnoreCase(name)).collect(Collectors.toList());
+        return books.values().stream().filter(b -> b.getName().equalsIgnoreCase(name)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/books/{isbn}")
+    public Book findBooksByIsbn(@PathVariable String isbn) {
+        Optional<Book> book = books.values().stream().filter(b -> b.getIsbn().equalsIgnoreCase(isbn)).findFirst();
+        return book.get();
     }
 }
